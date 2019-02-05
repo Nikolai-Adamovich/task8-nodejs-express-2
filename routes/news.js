@@ -1,13 +1,26 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const newsModel = require('../models/news.js');
 
 /* GET news listing. */
 router.get('/', function(req, res, next) {
-  res.send('GET');
+  newsModel.find({}, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 router.get('/:id', function(req, res, next) {
-  res.send(`GET ${req.params.id}`);
+  newsModel.findById(req.params.id, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 router.post('/', function(req, res, next) {
