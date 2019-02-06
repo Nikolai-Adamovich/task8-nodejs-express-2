@@ -5,11 +5,9 @@
   "main": "app.js",
   "scripts": {
     "heroku-prebuild": "npm i -D",
-    "start": "npm-run-all --serial webpack-prod node-prod",
+    "start": "webpack --mode production && cross-env NODE_ENV=production node ./bin/www",
     "dev": "npm-run-all --parallel webpack-dev node-dev",
-    "webpack-prod": "webpack --mode production",
     "webpack-dev": "webpack --mode development --progress --colors --watch",
-    "node-prod": "cross-env NODE_ENV=production node ./bin/www",
     "node-dev": "cross-env NODE_ENV=development PORT=8080 node ./bin/www"
   },
   "dependencies": {
