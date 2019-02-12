@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const newsModel = require('../models/news.js');
+const NewsModel = require('../models/news.js');
 
 /* GET news listing. */
 router.get('/', function(req, res, next) {
-  newsModel.find({}, (err, data) => {
+  NewsModel.find({}, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -13,26 +13,68 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
-  newsModel.findById(req.params.id, (err, data) => {
-    if (err) {
-      res.status(400).send(err);
+/* GET news by slug. */
+router.get('/:slug', function(req, res, next) {
+  NewsModel.findOne({
+    slug: req.params.slug
+  }, (err, data) => {
+    if (err || !data) {
+      res.redirect('/');
     } else {
-      res.send(data);
+      res.render('news', data);
     }
   });
 });
 
+/* POST (create) news */
 router.post('/', function(req, res, next) {
-  res.send('POST');
+  const news = new NewsModel({
+    author: req.body.author,
+    title: req.body.title,
+    slug: req.body.slug,
+    content: req.body.content,
+    imgUrl: req.body.imgUrl,
+    publishedAt: new Date()
+  });
+
+  news.save((err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
+/* PUT (update) news by ID. */
 router.put('/:id', function(req, res, next) {
-  res.send(`PUT ${req.params.id}`);
+  const news = new NewsModel({
+    author: req.body.author,
+    title: req.body.title,
+    slug: req.body.slug,
+    content: req.body.content,
+    imgUrl: req.body.imgUrl,
+    updatedAt: new Date()
+  });
+
+  NewsModel.findByIdAndDelete(req.params.id, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
+/* DELETE news by ID. */
 router.delete('/:id', function(req, res, next) {
-  res.send(`DELETE ${req.params.id}`);
+  NewsModel.findByIdAndDelete(req.params.id, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 module.exports = router;

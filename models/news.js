@@ -1,14 +1,32 @@
 const mongoose = require('../mongoose.js');
 
 const newsSchema = new mongoose.Schema({
-  author: String,
-  title: String,
-  content: String,
-  url: String,
-  urlToImage: String,
-  publishedAt: Date
+  author: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    dropDups: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  imgUrl: {
+    type: String,
+    required: true
+  },
+  publishedAt: Date,
+  updatedAt: Date
 });
 
-const newsModel = mongoose.model('News', newsSchema);
+const NewsModel = mongoose.model('News', newsSchema);
 
-module.exports = newsModel;
+module.exports = NewsModel;

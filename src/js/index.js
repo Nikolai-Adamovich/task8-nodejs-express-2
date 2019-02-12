@@ -1,7 +1,9 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {  
-  document.querySelector('#getAll').addEventListener('click', async () => {
+import slug from 'slug';
+
+document.addEventListener('DOMContentLoaded', () => {
+  /* document.querySelector('#getAll').addEventListener('click', async () => {
     const response = await fetch('/news', {
       method: 'GET'
     });
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(err);
     }
   });
-  
+
   document.querySelector('#getOne').addEventListener('click', async () => {
     const response = await fetch('/news/some-url', {
       method: 'GET'
@@ -28,16 +30,121 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(err.message);
     }
   });
-  
+
   document.querySelector('#post').addEventListener('click', async () => {
-    fetch('/news', { method: 'POST' });
+    const title = `Title ${Math.random() % 10}`;
+    const response = await fetch('/news', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-type': 'application/json'
+      }),
+      body: JSON.stringify({
+        author: `Author ${Math.random()}`,
+        title: title,
+        slug: slug(title, {
+          symbols: true,
+          lower: true
+        }),
+        content: `Content ${Math.random()}`,
+        imgUrl: `Image URL ${Math.random()}`
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      const err = await response.json();
+      console.log(err);
+    }
   });
-  
+
   document.querySelector('#put').addEventListener('click', async () => {
-    fetch('/news/some-id', { method: 'PUT' });
+    const response = await fetch('/news/some-id', {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-type': 'application/json'
+      }),
+      body: JSON.stringify({
+        a: 1234567890,
+        b: '#-#-#-#-#-#-#-#-#'
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      const err = await response.json();
+      console.log(err);
+    }
   });
-  
+
   document.querySelector('#delete').addEventListener('click', async () => {
-    fetch('/news/some-id', { method: 'DELETE' });
-  });
+    const response = await fetch('/news/some-id', {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      const err = await response.json();
+      console.log(err);
+    }
+  }); */
+
+  /* Register */
+  const register = document.querySelector('#register');
+
+  if (register) {
+    register.addEventListener('click', async () => {
+      const response = await fetch('/user', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+          username: document.querySelector('#username').value,
+          email: document.querySelector('#email').value,
+          password: document.querySelector('#password').value
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        const err = await response.json();
+        console.log(err);
+      }
+    });
+  }
+
+  /* Login */
+  const loginButton = document.querySelector('#login_button');
+
+  if (loginButton) {
+    loginButton.addEventListener('click', async () => {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+          username: document.querySelector('#username').value,
+          password: document.querySelector('#password').value
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        const err = await response.json();
+        console.log(err);
+      }
+    });
+  }
+
 });
