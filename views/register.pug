@@ -1,8 +1,11 @@
 extends layout
 
 block content
-  a(href='/') Back to main page
-  input(id="username", type="text", name="username", placeholder="Username", required, focus)
-  input(id="email", type="email", name="email", placeholder="Email", required)
-  input(id="password", type="password", name="password", placeholder="Password", required)
-  button(id="register", class="form__button") Register
+  input(id='username', type='text', name='username', placeholder='Username', required, focus)
+  input(id='email', type='email', name='email', placeholder='Email', required)
+  input(id='password', type='password', name='password', placeholder='Password', required)
+  label
+    input(id='role', type='checkbox', name='role', value='admin')
+    .
+      Give me Admin rights (create, edit, delete news)
+  button(id='register', class='form__button') Register

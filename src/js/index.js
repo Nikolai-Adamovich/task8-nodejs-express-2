@@ -1,6 +1,6 @@
 'use strict';
 
-import slug from 'slug';
+//import slug from 'slug';
 
 document.addEventListener('DOMContentLoaded', () => {
   /* document.querySelector('#getAll').addEventListener('click', async () => {
@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           username: document.querySelector('#username').value,
           email: document.querySelector('#email').value,
-          password: document.querySelector('#password').value
+          password: document.querySelector('#password').value,
+          role: document.querySelector('#role').value === 'admin' ? 'admin' : 'user'
         })
       });
 
@@ -138,12 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+        window.location.assign('/');
       } else {
         const err = await response.json();
         console.log(err);
       }
+    });
+  }
+
+  /* Header */
+
+  const navButton = document.querySelector('.nav__button');
+  const navMenu = document.querySelector('.nav__menu');
+
+  if (navButton && navMenu) {
+    navButton.addEventListener('click', () => {
+      navMenu.classList.toggle('nav__menu--visible');
     });
   }
 

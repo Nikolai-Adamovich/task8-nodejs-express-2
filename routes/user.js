@@ -18,7 +18,9 @@ router.post('/', (req, res, next) => {
           const newUser = new UserModel({
             username: req.body.username,
             email: req.body.email,
-            password: passwordHash
+            password: passwordHash,
+            role: req.body.role,
+            createdAt: new Date()
           });
 
           newUser.save((err, data) => {

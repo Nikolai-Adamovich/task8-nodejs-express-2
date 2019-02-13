@@ -4,5 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/index.css')
   body
-    block content
+    include includes/header
+    main(class='main')
+      div(class='main__container')
+        block content
+    include includes/footer
     script(src='/index.js')

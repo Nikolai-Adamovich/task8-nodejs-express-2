@@ -21,11 +21,7 @@ router.post('/', (req, res, next) => {
         return next(err);
       }
       //return res.redirect('/users/' + user.username);
-      return res.send({
-        email: user.email,
-        username: user.username,
-        id: user._id
-      });
+      res.status(200);
     });
   })(req, res, next);
 });

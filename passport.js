@@ -5,9 +5,6 @@ const UserModel = require('./models/user');
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    console.log('username', username);
-    console.log('password', password);
-
     UserModel.findOne({
       username: username
     }, (err, user) => {
@@ -37,10 +34,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   UserModel.findById(id, (err, user) => {
-    done(err, {
-      email: user.email,
-      username: user.username,
-      id: user._id
-    });
+    done(err, user);
   });
 });
