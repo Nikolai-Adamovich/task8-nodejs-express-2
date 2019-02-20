@@ -158,4 +158,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* Create news */
+  let image;
+  const createButton = document.querySelector('#create_button');
+
+  if (createButton) {
+    createButton.addEventListener('click', async () => {
+      const response = await fetch('/news', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+          title: document.querySelector('#title').value,
+          slug: document.querySelector('#slug').value,
+          content: document.querySelector('#content').value,
+          imgUrl: image
+        })
+      });
+
+      if (response.ok) {
+        window.location.assign('/');
+      } else {
+        const err = await response.json();
+        console.log(err);
+      }
+    });
+  }
+
+  /* Upload image */
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  const imageInput = document.querySelector('#image');
+  const imagePreview = document.querySelector('.form__image-preview');
+
+  if (imageInput && imagePreview) {
+    imageInput.addEventListener('change', async () => {
+      const file = imageInput.files[0];
+      
+      if (imageInput.files.length) {
+        image = await getBase64(file);
+      } else {
+        image = '';
+      }
+
+      imagePreview.classList.toggle('form__image-preview--filled', image);
+      imagePreview.style.backgroundImage = `url(${image})`;
+    });
+  }
 });

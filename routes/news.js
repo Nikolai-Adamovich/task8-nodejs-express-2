@@ -3,7 +3,7 @@ const router = express.Router();
 const NewsModel = require('../models/news.js');
 
 /* GET news listing. */
-router.get('/', function(req, res, next) {
+/* router.get('/', (req, res, next) => {
   NewsModel.find({}, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -11,10 +11,10 @@ router.get('/', function(req, res, next) {
       res.send(data);
     }
   });
-});
+}); */
 
 /* GET news by slug. */
-router.get('/:slug', function(req, res, next) {
+router.get('/:slug', (req, res, next) => {
   NewsModel.findOne({
     slug: req.params.slug
   }, (err, data) => {
@@ -27,9 +27,9 @@ router.get('/:slug', function(req, res, next) {
 });
 
 /* POST (create) news */
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
   const news = new NewsModel({
-    author: req.body.author,
+    author: req.user.username,
     title: req.body.title,
     slug: req.body.slug,
     content: req.body.content,
@@ -47,9 +47,9 @@ router.post('/', function(req, res, next) {
 });
 
 /* PUT (update) news by ID. */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', (req, res, next) => {
   const news = new NewsModel({
-    author: req.body.author,
+    author: req.user.username,
     title: req.body.title,
     slug: req.body.slug,
     content: req.body.content,
@@ -67,7 +67,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 /* DELETE news by ID. */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', (req, res, next) => {
   NewsModel.findByIdAndDelete(req.params.id, (err, data) => {
     if (err) {
       res.status(400).send(err);

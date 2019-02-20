@@ -9,6 +9,10 @@ router.all('/*', (req, res, next) => {
   }
 });
 
+router.get('/', (req, res, next) => {
+  res.render('admin', { title: 'Admin' });
+});
+
 router.get('/create-news', (req, res, next) => {
   res.render('create-news', { title: 'Create News' });
 });

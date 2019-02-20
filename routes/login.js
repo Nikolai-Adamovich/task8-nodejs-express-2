@@ -16,12 +16,12 @@ router.post('/', (req, res, next) => {
     if (!user) {
       return res.status(401).send(info);
     }
-    req.logIn(user, (err) => {
+    req.login(user, (err) => {
       if (err) {
         return next(err);
       }
       //return res.redirect('/users/' + user.username);
-      res.status(200);
+      return res.send();
     });
   })(req, res, next);
 });

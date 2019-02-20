@@ -13,6 +13,7 @@ const newsRouter = require('./routes/news');
 const userRouter = require('./routes/user');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const adminRouter = require('./routes/admin');
 
 const app = express();
@@ -29,15 +30,24 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Passport
+// Session
 app.use(session({
   secret: 'nothingReallySecretHere',
   resave: true,
   saveUninitialized: true
 }));
+
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 require(path.join(__dirname, 'passport'));
+
+// User authentication and role handler for templates
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.user = req.user || {};
+  next();
+});
 
 // Routes
 app.use('/', indexRouter);
@@ -45,15 +55,16 @@ app.use('/news', newsRouter);
 app.use('/user', userRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = err;

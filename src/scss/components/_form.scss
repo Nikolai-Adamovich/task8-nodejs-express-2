@@ -1,0 +1,17 @@
+.form {
+  &__image-preview {
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+
+    &--filled {
+      height: 300px;
+
+      span {
+        display: none;
+      }
+    }
+  }
+}

@@ -4,11 +4,18 @@ header(class='header')
       a(href='/') Some News
     nav(class='nav')
       div(class='nav__button')
+        if isAuthenticated
+          span #{user.username}
+        div(class=`nav__user-icon nav__user-icon--${isAuthenticated ? 'logged-in' : 'logged-out'}`)
       ul(class='nav__menu')
-        li(class='nav__menu-item nav__menu-item--username') User name
-        li(class='nav__menu-item nav__menu-item--link')
-          a(href='/register') Register
-        li(class='nav__menu-item nav__menu-item--link')
-          a(href='/login') Login
-        li(class='nav__menu-item nav__menu-item--link')
-          a(href='/logout') Logout
+        if isAuthenticated && user.role === 'admin'
+          li(class='nav__menu-item nav__menu-item--link')
+            a(href='/admin') Admin panel
+        if !isAuthenticated
+          li(class='nav__menu-item nav__menu-item--link')
+            a(href='/login') Login
+          li(class='nav__menu-item nav__menu-item--link')
+            a(href='/register') Register
+        else
+          li(class='nav__menu-item nav__menu-item--link')
+            a(href='/logout') Logout

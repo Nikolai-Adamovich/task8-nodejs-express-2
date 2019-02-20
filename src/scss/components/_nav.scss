@@ -3,10 +3,20 @@
 }
 
 .nav__button {
+  display: flex;
+  flex-wrap: nowrap;
+  cursor: pointer;
+}
+
+.nav__user-icon {
   width: 1.5rem;
   height: 1.5rem;
-  background: url(img/menu.svg) center / 1.5rem no-repeat;
-  cursor: pointer;
+  &--logged-in {
+    background: url(img/user-logged-in.svg) center / 1.5rem no-repeat;
+  }
+  &--logged-out {
+    background: url(img/user-logged-out.svg) center / 1.5rem no-repeat;
+  }
 }
 
 .nav__menu {
