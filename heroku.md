@@ -2,6 +2,10 @@
 
 - Install [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 - Login to heroku
-```heroku login```
+```sh
+heroku login
+```
 - Set variable *NPM_CONFIG_PRODUCTION* to **false**
-```heroku config:set NPM_CONFIG_PRODUCTION=false --app your-application-name```
+```sh
+heroku config:set NPM_CONFIG_PRODUCTION=false --app your-application-name
+```
