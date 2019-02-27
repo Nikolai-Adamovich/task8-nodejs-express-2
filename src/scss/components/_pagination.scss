@@ -12,9 +12,7 @@
 
 .pagination__item {
   margin-top: 10px;
-  padding: 5px 10px;
   font-weight: bold;
-  color: $light-gray;
   background: $teal;
   border-left: 1px solid $light-gray;
   cursor: pointer;
@@ -41,5 +39,12 @@
   &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  a,
+  span {
+    display: block;
+    padding: 5px 10px;
+    color: $light-gray;
   }
 }

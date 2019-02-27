@@ -42,10 +42,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 require(path.join(__dirname, 'passport'));
 
-// User authentication and role handler for templates
 app.use((req, res, next) => {
+  // User authentication and role handler for templates
   res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.user = req.user || {};
+
+  // Some settings
+  req.session.newsPerPage = 1;
+  
   next();
 });
 

@@ -30,3 +30,10 @@
     clear: both;
   }
 }
+
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color;
+    opacity: 1;
+  }
+}
