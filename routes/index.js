@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   try {
     const newsList = await NewsModel.find().limit(req.session.newsPerPage);
     const newsPerPage = req.session.newsPerPage;
-    const newsCount = await NewsModel.find().count();
+    const newsCount = await NewsModel.find().countDocuments();
     const pagesCount = Math.ceil(newsCount / newsPerPage);
 
     res.render('index', {
@@ -28,9 +28,10 @@ router.get('/:pageNumber(0|1)', (req, res, next) => {
 /* Pages 2, 3, 4 ... */
 router.get('/:pageNumber(\\d+)', async (req, res, next) => {
   try {
-    const pageNumber = req.params.pageNumber;
-    const newsPerPage = req.session.newsPerPage;
-    const newsCount = await NewsModel.find().count();
+    // NB: Type of pageNumber is string!
+    const pageNumber = parseInt(req.params.pageNumber, 10);
+    const newsPerPage = parseInt(req.session.newsPerPage, 10);
+    const newsCount = await NewsModel.find().countDocuments();
     const pagesCount = Math.ceil(newsCount / newsPerPage);
 
     if (!newsCount || pageNumber > pagesCount) {
