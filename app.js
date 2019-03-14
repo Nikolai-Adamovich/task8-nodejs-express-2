@@ -48,7 +48,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user || {};
 
   // Some settings
-  req.session.newsPerPage = 1;
+  req.session.newsPerPage = 10;
   
   next();
 });

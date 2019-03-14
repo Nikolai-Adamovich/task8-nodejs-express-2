@@ -5,7 +5,11 @@ block content
     each news in newsList
       li(class='news__item')
         article(class='news__article')
-          h2(class='news__title') #{news.title}
+          h2(class='news__title')
+            .
+              #{news.title}
+            if isAuthenticated && user.role === 'admin'
+              include includes/article-panel
           div(class='news__main')
             div(class='news__image' style=`background-image: url(${news.imgUrl});`)
             div(class='news__content') #{news.content}
