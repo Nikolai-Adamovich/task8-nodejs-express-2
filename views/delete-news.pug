@@ -15,4 +15,7 @@ block content
           div(class='news__published-at') #{news.publishedAt}
           div(class='news__updated-at') #{news.updatedAt}
         div(class='form__field')
-          button(id='confirm_button', class='form__button') Confirm
+          button(id='delete_button', class='form__button') Confirm
+  // Send data along with page render
+  script.
+    const newsId = '#{news._id}';

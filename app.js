@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 
   // Some settings
   req.session.newsPerPage = 10;
+  req.session.usersPerPage = 10;
   
   next();
 });

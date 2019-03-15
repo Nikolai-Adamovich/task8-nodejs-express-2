@@ -5,8 +5,8 @@ const NewsModel = require('../models/news.js');
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
-    const newsList = await NewsModel.find().limit(req.session.newsPerPage);
     const newsPerPage = req.session.newsPerPage;
+    const newsList = await NewsModel.find().limit(newsPerPage);
     const newsCount = await NewsModel.find().countDocuments();
     const pagesCount = Math.ceil(newsCount / newsPerPage);
 
@@ -28,9 +28,8 @@ router.get('/:pageNumber(0|1)', (req, res, next) => {
 /* Pages 2, 3, 4 ... */
 router.get('/:pageNumber(\\d+)', async (req, res, next) => {
   try {
-    // NB: Type of pageNumber is string!
+    const newsPerPage = req.session.newsPerPage;
     const pageNumber = parseInt(req.params.pageNumber, 10);
-    const newsPerPage = parseInt(req.session.newsPerPage, 10);
     const newsCount = await NewsModel.find().countDocuments();
     const pagesCount = Math.ceil(newsCount / newsPerPage);
 

@@ -15,4 +15,7 @@ block content
     div(class='form__field')
       textarea(id='content', type='text', name='content', placeholder='Content', required) #{news.content}
     div(class='form__field')
-      button(id='save_button', class='form__button') Save
+      button(id='edit_button', class='form__button') Save
+  // Send data along with page render
+  script.
+    const newsId = '#{news._id}';

@@ -48,16 +48,18 @@ router.post('/', (req, res, next) => {
 
 /* PUT (update) news by ID. */
 router.put('/:id', (req, res, next) => {
-  const news = new NewsModel({
+  const updateObj = {
     author: req.user.username,
     title: req.body.title,
     slug: req.body.slug,
     content: req.body.content,
     imgUrl: req.body.imgUrl,
     updatedAt: new Date()
-  });
+  };
 
-  NewsModel.findByIdAndDelete(req.params.id, (err, data) => {
+  NewsModel.findByIdAndUpdate(req.params.id, updateObj, {
+        new: true
+      }, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
